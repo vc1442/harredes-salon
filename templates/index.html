@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HarreDes Beauty Salon | Bonas</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @keyframes float {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+            100% { transform: translateX(0); }
+        }
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .top-band {
+            background: linear-gradient(135deg, #d46a8c, #e91e63);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .floating-logo {
+            height: 50px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .social-btn img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        .social-btn img:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .second-band {
+            background: #883955;
+            padding: 8px 20px;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #fff9fb;
+            color: #333;
+            line-height: 1.6;
+        }
+        main {
+            margin-top: 120px;
+            min-height: calc(100vh - 120px);
+            padding: 20px;
+        }
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .service-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .service-card:hover img {
+            transform: scale(1.05);
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(212,106,140,0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        .service-info {
+            padding: 18px;
+        }
+        .service-info h3 {
+            color: #d46a8c;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .book-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 20px;
+            background: #d46a8c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+            position: relative;
+            z-index: 20;
+            cursor: pointer;
+        }
+        .book-btn:hover {
+            background: #c25a7a;
+            transform: translateY(-2px);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 14px;
+            background: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Dual-Band Header -->
+    <div class="sticky-header">
+        <div class="top-band">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HarreDes Logo" class="floating-logo">
+            </div>
+            <div class="social-buttons">
+                <a href="https://wa.me/237671361155" target="_blank" class="social-btn">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-btn">
+                    <img src="{{ url_for('static', filename='images/instagram.png') }}" alt="Instagram">
+                </a>
+            </div>
+        </div>
+        <div class="second-band">
+            📞 Call/WhatsApp: +237 671 361 155 | 📍 Bonas, Cameroon
+        </div>
+    </div>
+
+    <main>
+        <h2 style="text-align:center; color:#d46a8c; margin:30px 0;">Our Services</h2>
+        <div class="services">
+            {% for i in range(1, 6) %}
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='images/hair_' + i|string + '.jpg') }}" alt="Hair Styling">
+                <div class="service-info">
+                    <h3>Hair Styling</h3>
+                    <p>Cuts, coloring, braids & relaxers</p>
+                    <a href="/booking" class="book-btn">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for i in range(1, 6) %}
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='images/nails_' + i|string + '.jpg') }}" alt="Nail Design">
+                <div class="service-info">
+                    <h3>Nail Design</h3>
+                    <p>Manicure, pedicure & nail art</p>
+                    <a href="/booking" class="book-btn">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for i in range(1, 6) %}
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='images/makeup_' + i|string + '.jpg') }}" alt="Facial Makeup">
+                <div class="service-info">
+                    <h3>Facial Makeup</h3>
+                    <p>Daily, event & professional makeup</p>
+                    <a href="/booking" class="book-btn">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for i in range(1, 6) %}
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='images/massage_' + i|string + '.jpg') }}" alt="Massage">
+                <div class="service-info">
+                    <h3>Massage Therapy</h3>
+                    <p>Relaxing full-body massage</p>
+                    <a href="/booking" class="book-btn">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for i in range(1, 6) %}
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='images/bridal_' + i|string + '.jpg') }}" alt="Bridal Package">
+                <div class="service-info">
+                    <h3>Bridal Package</h3>
+                    <p>Hair, makeup & nails for your big day</p>
+                    <a href="/booking" class="book-btn">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>&copy; 2026 HarreDes Beauty Salon, Bonas</footer>
+</body>
+</html>
