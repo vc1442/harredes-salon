@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment | HarreDes</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @keyframes float {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+            100% { transform: translateX(0); }
+        }
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .top-band {
+            background: linear-gradient(135deg, #d46a8c, #e91e63);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .floating-logo {
+            height: 50px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .social-btn img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        .social-btn img:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .second-band {
+            background: #883955;
+            padding: 8px 20px;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #fff9fb;
+            color: #333;
+            line-height: 1.6;
+        }
+        main {
+            margin-top: 120px;
+            min-height: calc(100vh - 120px);
+            padding: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        form h2 {
+            color: #d46a8c;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #d46a8c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #c25a7a;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 14px;
+            background: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Dual-Band Header -->
+    <div class="sticky-header">
+        <div class="top-band">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HarreDes Logo" class="floating-logo">
+            </div>
+            <div class="social-buttons">
+                <a href="https://wa.me/237671361155" target="_blank" class="social-btn">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-btn">
+                    <img src="{{ url_for('static', filename='images/instagram.png') }}" alt="Instagram">
+                </a>
+            </div>
+        </div>
+        <div class="second-band">
+            📞 Call/WhatsApp: +237 671 361 155 | 📍 Bonas, Cameroon
+        </div>
+    </div>
+
+    <main>
+        <form method="POST">
+            <h2>📅 Book Your Appointment</h2>
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="tel" name="phone" placeholder="Phone Number (e.g., +237 612345678)" required>
+            <select name="service" required>
+                <option value="">Select Service</option>
+                <option>Hair Styling</option>
+                <option>Nail Design</option>
+                <option>Facial Makeup</option>
+                <option>Massage</option>
+                <option>Bridal Package</option>
+            </select>
+            <input type="date" name="date" required min="2026-02-03">
+            <select name="time" required>
+                <option value="">Select Time</option>
+                <option>09:00 AM</option>
+                <option>10:00 AM</option>
+                <option>11:00 AM</option>
+                <option>12:00 PM</option>
+                <option>01:00 PM</option>
+                <option>02:00 PM</option>
+                <option>03:00 PM</option>
+                <option>04:00 PM</option>
+                <option>05:00 PM</option>
+            </select>
+            <button type="submit">Confirm Booking</button>
+            <a href="/" style="display:block; text-align:center; margin-top:15px; color:#d46a8c;">← Back to Services</a>
+        </form>
+    </main>
+
+    <footer>&copy; 2026 HarreDes Beauty Salon, Bonas</footer>
+</body>
+</html>
