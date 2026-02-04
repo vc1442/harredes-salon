@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | HarreDes</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fdf9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .controls {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .export-btn {
+            background: #2e7d32;
+            color: white;
+        }
+        .clear-btn {
+            background: #d32f2f;
+            color: white;
+        }
+        .back-btn {
+            background: #1976d2;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            color: #2e7d32;
+            margin: 30px 0 20px;
+            font-size: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        th {
+            background: #e8f5e9;
+            color: #1b5e20;
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #4caf50;
+        }
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover {
+            background-color: #f1f8e9;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            background: white;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 90%;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            th, td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            th::before, td::before {
+                content: attr(data-label) ": ";
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔐 HarreDes Admin Dashboard</h1>
+        <p>Manage client bookings and salon operations</p>
+    </div>
+
+    <div class="container">
+        <div class="controls">
+            <a href="/export_excel" class="btn export-btn">📊 Export All Bookings to Excel</a>
+            <a href="/clear_bookings" class="btn clear-btn" onclick="return confirm('Are you sure? This will delete all bookings permanently.')">🗑️ Clear All Bookings</a>
+        </div>
+
+        <h2 class="section-title">Upcoming Appointments</h2>
+        
+        {% if bookings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <td data-label="Name">{{ b[0] }}</td>
+                    <td data-label="Phone">{{ b[1] }}</td>
+                    <td data-label="Service">{{ b[2] }}</td>
+                    <td data-label="Date">{{ b[3] }}</td>
+                    <td data-label="Time">{{ b[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center; padding:40px; background:white; border-radius:10px; margin-bottom:30px; color:#666;">
+            <h3>No bookings yet.</h3>
+            <p>Clients will appear here once they book appointments.</p>
+        </div>
+        {% endif %}
+
+        <div style="text-align:center; margin-bottom:30px;">
+            <a href="/" class="btn back-btn">← Back to Client Site</a>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 HarreDes Beauty Salon, Bonas</footer>
+</body>
+</html>
